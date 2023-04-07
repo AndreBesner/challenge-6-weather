@@ -5,7 +5,9 @@ $(document).ready(function(){
         e.preventDefault();
         let city = $("#city-name").val().trim();
         console.log(city)
-        cityName.val('');
+        let key = "userText" + Date.now();
+        localStorage.setItem(key, city);
+        cityName.val("");
 
     });
 
