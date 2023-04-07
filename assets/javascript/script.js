@@ -3,16 +3,20 @@ $(document).ready(function(){
 
     let previousSearches = [] ;
 
-    $("#city-name-input").submit(function(event){
+    let cityNameInput = $("#city-name-input");
+    let cityName = $("#city-name")
+    cityNameInput.submit(function(event){
         event.preventDefault();
-        let cityName = $("#city-name").val().trim(); // what user entered
-        console.log(cityName);
-        printName(cityName);
-        printData(event);
+        cityName = $("#city-name").val().trim(); // what user entered
+        // console.log(cityName);
+        // printName(cityName);
+        // printData(event);
         previousSearches.push(cityName); // adds user search to array, to be saved to local storage
+        cityName.textContent = "";
         console.log(previousSearches);
-        localStorage.setItem(city, cityName);
+        localStorage.setItem("searchTerm", cityName);
     })
+
 
     function printName(name){
         console.log(name);
