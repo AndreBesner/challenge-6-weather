@@ -29,11 +29,28 @@ $(document).ready(function(){
             return response.json();
         })
         .then(function (data) {
-           console.log(data);
-           console.log(data[0].lat);
-           console.log(data[0].lon);
+        //    console.log(data);
+        //    console.log(data[0].lat);
+           let lat = data[0].lat;
+           console.log(lat);
+        //    console.log(data[0].lon);
+           let lon = data[0].lon;
+           console.log(lon);
+           getWeather(lat, lon);
         })
+    }
 
+    const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
+    function getWeather(latitude, longitude){
+        let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+        console.log(getWeatherUrl);
+        fetch(getWeatherUrl)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function (data){
+            console.log(data);
+        })
     }
 
 
