@@ -29,7 +29,7 @@ $(document).ready(function(){
             return response.json();
         })
         .then(function (data) {
-        //    console.log(data);
+           console.log(data);
         //    console.log(data[0].lat);
            let lat = data[0].lat;
            console.log(lat);
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
     function getWeather(latitude, longitude){
-        let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+        let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
         console.log(getWeatherUrl);
         fetch(getWeatherUrl)
         .then(function(response){
@@ -50,6 +50,7 @@ $(document).ready(function(){
         })
         .then(function (data){
             console.log(data);
+            console.log(data.city.name); // wow
         })
     }
 
