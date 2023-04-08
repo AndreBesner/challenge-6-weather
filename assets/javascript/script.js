@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+
+    // Print the last 5 searches as list items
+    let previousSearchContainer = $("#previous-search-container");
+    function printLastSearches(){
+        for(let i = localStorage.length - 1 ; i >= localStorage.length - 6 ; i -- ){
+            let key = localStorage.key(i);
+            console.log(localStorage.getItem(key));
+            let makeListItem = document.createElement('li');
+            makeListItem.innerHTML = localStorage.getItem(key);
+            previousSearchContainer.append(makeListItem);
+        }
+    }
+
+    printLastSearches();
+
+
     let cityName = $("#city-name");
     
     $("#city-name-input").submit(function (e) { 
@@ -11,9 +27,13 @@ $(document).ready(function(){
         let storageKey = "userText" + Date.now(); // sets a key for individual local storage
         localStorage.setItem(storageKey, city); // sets each search term to local storage
 
-        getLongLat(city);
+        getLongLat(city); // passes city text on to api call idek how but it works with gibberish
 
-        cityName.val("");
+        
+
+        cityName.val(""); // clears text in box
+
+        //
 
     });
 
