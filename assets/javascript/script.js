@@ -24,7 +24,7 @@ $(document).ready(function(){
         let city = $("#city-name").val().trim(); // saves entered name to variable
         console.log(city)
 
-        let storageKey = "userText" + Date.now(); // sets a key for individual local storage
+        let storageKey = "userText.." + Date.now(); // sets a key for individual local storage
         localStorage.setItem(storageKey, city); // sets each search term to local storage
 
         getLongLat(city); // passes city text on to api call idek how but it works with gibberish
