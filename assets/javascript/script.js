@@ -11,9 +11,31 @@ $(document).ready(function(){
         let storageKey = "userText" + Date.now(); // sets a key for individual local storage
         localStorage.setItem(storageKey, city); // sets each search term to local storage
 
+        getLongLat(city);
+
         cityName.val("");
 
     });
+
+
+
+    const latLongAPIUrl = "http://api.openweathermap.org/geo/1.0/direct?q="
+    const apiKey = "4790ded9cd9c563d5479fc18a7479e30"
+    function getLongLat(data){
+        console.log(data);
+        let latLongUrl = latLongAPIUrl + data + "&appid=" + apiKey;
+        fetch(latLongUrl)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function (data) {
+           console.log(data);
+           console.log(data[0].lat);
+           console.log(data[0].lon);
+        })
+
+    }
+
 
 
 })

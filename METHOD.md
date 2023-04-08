@@ -27,6 +27,10 @@ When you hit enter or click submit it generates an event
 
 Data from event to be passed onto weather api for city to be turned into coordinates for api call
 
+because i need the long and lat looks like i need to send an api call with the city name to the server
+
+it will then reply with data I can parse for the lat and long to be added to next api call for actual weather
+
 these coordinates are fed into weather api url with our key to get data back in form of JSON
 
 Also, when form is submitted it calls a function to display nicely formatted JSON data to user at right side of page
