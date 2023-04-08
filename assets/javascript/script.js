@@ -2,12 +2,13 @@ $(document).ready(function(){
 
 
     // Print the last 5 searches as list items
+    // Apparently local storage doesn't always save in order that's why my list doesnt work 100%.. nice
     let previousSearchContainer = $("#previous-search-container");
     function printLastSearches(){
-        for(let i = localStorage.length - 1 ; i >= localStorage.length - 6 ; i -- ){
+        for(let i = localStorage.length - 1 ; i >= localStorage.length - 6 ; i -- ){ // loops backward thru array
             let key = localStorage.key(i);
             console.log(localStorage.getItem(key));
-            let makeListItem = document.createElement('li');
+            let makeListItem = document.createElement('li'); // prints 5 recentish searches to screen
             makeListItem.innerHTML = localStorage.getItem(key);
             previousSearchContainer.append(makeListItem);
         }
