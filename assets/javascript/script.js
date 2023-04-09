@@ -51,11 +51,20 @@ $(document).ready(function(){
     const apiKey = "4790ded9cd9c563d5479fc18a7479e30"
     function getLongLat(data){
         // console.log(data);
+        /*
+        This should probably clear any divs displaying the current weather content first
+        little heads up for meself for later
+        */
         let latLongUrl = latLongAPIUrl + data + "&appid=" + apiKey;
         fetch(latLongUrl)
+        .catch(function(error){
+            console.log(error);
+            alert("Something went wrong, please try again later, alligator");
+        })
         .then(function(response){
             return response.json();
         })
+        
         .then(function (data) {
         //    console.log(data);
         //    console.log(data[0].lat);
@@ -78,6 +87,10 @@ $(document).ready(function(){
     let weatherDay1 = {} ; // gonna go the hard way
 
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
+
+    const openWeatherIconURL = "http://openweathermap.org/img/w/" + iconcode + ".png"
+
+
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
         console.log(getWeatherUrl);
@@ -93,6 +106,7 @@ $(document).ready(function(){
             weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
             console.log(weatherDataToday.description);
             weatherDataToday.icon = data.list[0].weather[0].icon;
+            //here we would set weather data icon
             weatherDataToday.name = data.city.name;
             console.log(weatherDataToday.name);
             weatherDataToday.date = data.list[0].dt_txt;
@@ -109,6 +123,7 @@ $(document).ready(function(){
             // lets go the hard way 
             weatherDay1.description = data.list[8].weather[0].description;
             weatherDay1.icon = data.list[8].weather[0].icon;
+            //here we would set weather data icon
             weatherDay1.name = data.city.name;
             weatherDay1.date = data.list[8].dt_txt;
             weatherDay1.temperature = data.list[8].main.temp;
