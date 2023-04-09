@@ -62,6 +62,10 @@ $(document).ready(function(){
 
     // an object to hold the weather data that is global
     let weatherDataToday = {};
+    // another object for 5 day lol
+    let weatherDataFiveDay = {
+        day : []
+    } ;
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
@@ -88,6 +92,10 @@ $(document).ready(function(){
             console.log(weatherDataToday.humidity);
             weatherDataToday.windSpeed = data.list[0].wind.speed;
             console.log(weatherDataToday.windSpeed);
+
+            for(var i = 0 ; i < data.list.length ; i+7){
+                weatherDataFiveDay.day[i].description = data.list[i].weather[0].description;
+            }
         })
     }
 
