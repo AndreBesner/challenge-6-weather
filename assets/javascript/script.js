@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 
-    // Print the last 5 searches as list items
+    // Print the  5 searches as list items
     let previousSearchContainer = $("#previous-search-container");
     function printLastSearches(){
         for(let i = localStorage.length - 1 ; i >= localStorage.length - 6 ; i -- ){
@@ -55,17 +55,30 @@ $(document).ready(function(){
         This should probably clear any divs displaying the current weather content first
         little heads up for meself for later
         */
+
+        
+
         let latLongUrl = latLongAPIUrl + data + "&appid=" + apiKey;
         fetch(latLongUrl)
+        
+        
+        .then(function(response){
+            if(!response.ok){
+                alert("Woops something went wrong!");
+            }
+            return response.json();
+        })
         .catch(function(error){
             console.log(error);
             alert("Something went wrong, please try again later, alligator");
         })
-        .then(function(response){
-            return response.json();
-        })
         
+        //THIS CHECKS IF THE DATA ENTERED DOESNT WORK
         .then(function (data) {
+            if(!data || data.length === 0){
+                alert("Sorry, Please enter a valid city name.")
+                return;
+            }
         //    console.log(data);
         //    console.log(data[0].lat);
            let lat = data[0].lat;
@@ -88,7 +101,11 @@ $(document).ready(function(){
 
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
 
-    const openWeatherIconURL = "http://openweathermap.org/img/w/" + iconcode + ".png"
+
+    let weatherIconToday = "";
+    let openWeatherIconURL = "http://openweathermap.org/img/w/" + weatherIconToday + ".png"
+
+   
 
 
     function getWeather(latitude, longitude){
@@ -96,25 +113,54 @@ $(document).ready(function(){
         console.log(getWeatherUrl);
         fetch(getWeatherUrl)
         .then(function(response){
+            if(!response.ok){
+                alert("Woops something went wrong!");
+            }
             return response.json();
         })
         .then(function (data){
+
+            // This is all the data openweather sends for weather
             console.log(data);
+
+
+
+            //Current day city name
             console.log(data.city.name); // wow
+            $("#day-today").text("You have chosen: "+data.city.name);
+
+            //Current Day Weather Description
             // weatherDataToday.temperature = data.weather[0].description;
-            console.log(data.list[0].weather[0].description); //wow, this goes thru and gets description for current time
-            weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
+            // console.log(data.list[0].weather[0].description); //wow, this goes thru and gets description for current time
+            // weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
             console.log(weatherDataToday.description);
+
+
+
+
             weatherDataToday.icon = data.list[0].weather[0].icon;
+            let iconCode = data.list[0].weather[0].icon;
+            let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            $("#weather-icon").attr('src', iconURL)
+
+
             //here we would set weather data icon
+
+
             weatherDataToday.name = data.city.name;
             console.log(weatherDataToday.name);
+
+
+
             weatherDataToday.date = data.list[0].dt_txt;
             console.log(weatherDataToday.date);
+
             weatherDataToday.temperature = data.list[0].main.temp;
             console.log(weatherDataToday.temperature);
+
             weatherDataToday.humidity = data.list[0].main.humidity;
             console.log(weatherDataToday.humidity);
+
             weatherDataToday.windSpeed = data.list[0].wind.speed;
             console.log(weatherDataToday.windSpeed);
 
