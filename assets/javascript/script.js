@@ -42,20 +42,20 @@ $(document).ready(function(){
     const latLongAPIUrl = "http://api.openweathermap.org/geo/1.0/direct?q="
     const apiKey = "4790ded9cd9c563d5479fc18a7479e30"
     function getLongLat(data){
-        console.log(data);
+        // console.log(data);
         let latLongUrl = latLongAPIUrl + data + "&appid=" + apiKey;
         fetch(latLongUrl)
         .then(function(response){
             return response.json();
         })
         .then(function (data) {
-           console.log(data);
+        //    console.log(data);
         //    console.log(data[0].lat);
            let lat = data[0].lat;
-           console.log(lat);
+        //    console.log(lat);
         //    console.log(data[0].lon);
            let lon = data[0].lon;
-           console.log(lon);
+        //    console.log(lon);
            getWeather(lat, lon);
         })
     }
@@ -74,10 +74,29 @@ $(document).ready(function(){
             console.log(data);
             console.log(data.city.name); // wow
             // weatherDataToday.temperature = data.weather[0].description;
-            console.log(data.list[0].weather[0].description); //wow
+            console.log(data.list[0].weather[0].description); //wow, this goes thru and gets description for current time
+            weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
+            console.log(weatherDataToday.description);
+            weatherDataToday.icon = data.list[0].weather[0].icon;
+            weatherDataToday.name = data.city.name;
+            console.log(weatherDataToday.name);
+            weatherDataToday.date = data.list[0].dt_txt;
+            console.log(weatherDataToday.date);
+            weatherDataToday.temperature = data.list[0].main.temp;
+            console.log(weatherDataToday.temperature);
+            weatherDataToday.humidity = data.list[0].main.humidity;
+            console.log(weatherDataToday.humidity);
+            weatherDataToday.windSpeed = data.list[0].wind.speed;
+            console.log(weatherDataToday.windSpeed);
         })
     }
 
+    /*
+WHEN I view current weather conditions for that city
+THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+WHEN I view future weather conditions for that city
+THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+    */
 
 
 })
