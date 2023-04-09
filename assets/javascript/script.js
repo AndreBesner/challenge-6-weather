@@ -10,6 +10,14 @@ $(document).ready(function(){
             let makeListItem = document.createElement('li');
             makeListItem.innerHTML = localStorage.getItem(key);
             previousSearchContainer.append(makeListItem);
+            //make a link
+
+            //on click have it run function like below 
+            makeListItem.addEventListener('click', (e)=>{
+                e.preventDefault(); // stops page from refreshing
+                let city = e.target.innerHTML;
+                getLongLat(city);
+            })
         }
     }
 
