@@ -64,8 +64,11 @@ $(document).ready(function(){
     let weatherDataToday = {};
     // another object for 5 day lol
     let weatherDataFiveDay = {
-        day : []
+        day : [],
     } ;
+
+    let weatherDay1 = {} ; // gonna go the hard way
+
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
@@ -93,10 +96,25 @@ $(document).ready(function(){
             weatherDataToday.windSpeed = data.list[0].wind.speed;
             console.log(weatherDataToday.windSpeed);
 
-            for(var i = 0 ; i < data.list.length ; i+7){
-                weatherDataFiveDay.day[i].description = data.list[i].weather[0].description;
-            }
-        })
+            
+
+            // lets go the hard way 
+            weatherDay1.description = data.list[8].weather[0].description;
+            weatherDay1.icon = data.list[8].weather[0].icon;
+            weatherDay1.name = data.city.name;
+            weatherDay1.date = data.list[8].dt_txt;
+            weatherDay1.temperature = data.list[8].main.temp;
+            weatherDay1.humidity = data.list[8].main.humidity;
+            weatherDay1.windSpeed = data.list[8].wind.speed;
+            console.log(weatherDay1);
+            //wow this is horrible but I will leave it like this for now while i do other stuff but it might give me carpal tunner
+
+
+
+
+            
+
+            })
     }
 
     /*
