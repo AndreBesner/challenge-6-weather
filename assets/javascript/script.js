@@ -6,7 +6,7 @@ $(document).ready(function(){
     function printLastSearches(){
         for(let i = localStorage.length - 1 ; i >= localStorage.length - 6 ; i -- ){
             let key = localStorage.key(i);
-            console.log(localStorage.getItem(key));
+            // console.log(localStorage.getItem(key));
             let makeListItem = document.createElement('li');
             makeListItem.innerHTML = localStorage.getItem(key);
             previousSearchContainer.append(makeListItem);
@@ -133,42 +133,45 @@ $(document).ready(function(){
             // console.log(weatherDataToday.name);
             // $("#city-name").text("Weather for: "+data.city.name);
 
-            weatherDataToday.icon = data.list[0].weather[0].icon;
+            // weatherDataToday.icon = data.list[0].weather[0].icon;
             let iconCode = data.list[0].weather[0].icon;
             let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
-            $("#weather-icon").attr('src', iconURL)
+            $("#weather-icon").attr('src', iconURL);
+
+            //the missing data is hidden until user gets to point in function where icon is generated so it never looks super ugly only little ugly
+            $("#present-day-weather-container").addClass("show");
 
             // day data
             // weatherDataToday.date = data.list[0].dt_txt;
-            console.log(weatherDataToday.date);
+            // console.log(weatherDataToday.date);
             $("#day-today").text("This is the weather on: " +data.list[0].dt_txt);
 
             //Current day city name
-            console.log(data.city.name); // wow
+            // console.log(data.city.name); // wow
 
             //Current Day Weather Description
             // weatherDataToday.temperature = data.weather[0].description;
             // console.log(data.list[0].weather[0].description); //wow, this goes thru and gets description for current time
             // weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
-            console.log(weatherDataToday.description);
+            // console.log(weatherDataToday.description);
             $("#description-today").text(data.list[0].weather[0].description);
 
             // weatherDataToday.temperature = data.list[0].main.temp;
-            console.log(weatherDataToday.temperature);
+            // console.log(weatherDataToday.temperature);
             $("#temperature-today").text("Temerature: " +data.list[0].main.temp+" Celcius");
 
 
 
 
             // weatherDataToday.humidity = data.list[0].main.humidity;
-            console.log(weatherDataToday.humidity);
+            // console.log(weatherDataToday.humidity);
             $("#humidity-today").text(data.list[0].main.humidity +"%");
 
             // weatherDataToday.windSpeed = data.list[0].wind.speed;
-            console.log(weatherDataToday.windSpeed);
+            // console.log(weatherDataToday.windSpeed);
             $("#windspeed-today").text(data.list[0].wind.speed + "km/h");
 
-            
+            console.log('debug time');
 
             // lets go the hard way 
             weatherDay1.description = data.list[8].weather[0].description;
