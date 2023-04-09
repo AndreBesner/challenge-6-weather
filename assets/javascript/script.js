@@ -25,24 +25,15 @@ $(document).ready(function(){
 
 
     let cityName = $("#city-name");
-    
     $("#city-name-input").submit(function (e) { 
         e.preventDefault(); // stops page from refreshing
-
         let city = $("#city-name").val().trim(); // saves entered name to variable
         console.log(city)
-
         let storageKey = "userText.." + Date.now(); // sets a key for individual local storage
         localStorage.setItem(storageKey, city); // sets each search term to local storage
-
         getLongLat(city); // passes city text on to api call idek how but it works with gibberish
-
-        
-
         cityName.val(""); // clears text in box
-
         //
-
     });
 
 
@@ -125,44 +116,57 @@ $(document).ready(function(){
 
 
 
-            //Current day city name
-            console.log(data.city.name); // wow
-            $("#day-today").text("You have chosen: "+data.city.name);
+            
 
-            //Current Day Weather Description
-            // weatherDataToday.temperature = data.weather[0].description;
-            // console.log(data.list[0].weather[0].description); //wow, this goes thru and gets description for current time
-            // weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
-            console.log(weatherDataToday.description);
+            
 
 
 
+
+            
+
+
+            //here we would set weather data icon
+
+
+            // weatherDataToday.name = data.city.name;
+            // console.log(weatherDataToday.name);
+            // $("#city-name").text("Weather for: "+data.city.name);
 
             weatherDataToday.icon = data.list[0].weather[0].icon;
             let iconCode = data.list[0].weather[0].icon;
             let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
             $("#weather-icon").attr('src', iconURL)
 
-
-            //here we would set weather data icon
-
-
-            weatherDataToday.name = data.city.name;
-            console.log(weatherDataToday.name);
-
-
-
-            weatherDataToday.date = data.list[0].dt_txt;
+            // day data
+            // weatherDataToday.date = data.list[0].dt_txt;
             console.log(weatherDataToday.date);
+            $("#day-today").text("This is the weather on: " +data.list[0].dt_txt);
 
-            weatherDataToday.temperature = data.list[0].main.temp;
+            //Current day city name
+            console.log(data.city.name); // wow
+
+            //Current Day Weather Description
+            // weatherDataToday.temperature = data.weather[0].description;
+            // console.log(data.list[0].weather[0].description); //wow, this goes thru and gets description for current time
+            // weatherDataToday.description = data.list[0].weather[0].description; // sets it to current weatherDataTodayObject
+            console.log(weatherDataToday.description);
+            $("#description-today").text(data.list[0].weather[0].description);
+
+            // weatherDataToday.temperature = data.list[0].main.temp;
             console.log(weatherDataToday.temperature);
+            $("#temperature-today").text("Temerature: " +data.list[0].main.temp+" Celcius");
 
-            weatherDataToday.humidity = data.list[0].main.humidity;
+
+
+
+            // weatherDataToday.humidity = data.list[0].main.humidity;
             console.log(weatherDataToday.humidity);
+            $("#humidity-today").text(data.list[0].main.humidity +"%");
 
-            weatherDataToday.windSpeed = data.list[0].wind.speed;
+            // weatherDataToday.windSpeed = data.list[0].wind.speed;
             console.log(weatherDataToday.windSpeed);
+            $("#windspeed-today").text(data.list[0].wind.speed + "km/h");
 
             
 
