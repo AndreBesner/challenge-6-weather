@@ -60,6 +60,8 @@ $(document).ready(function(){
         })
     }
 
+    // an object to hold the weather data that is global
+    let weatherDataToday = {};
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
@@ -71,6 +73,8 @@ $(document).ready(function(){
         .then(function (data){
             console.log(data);
             console.log(data.city.name); // wow
+            // weatherDataToday.temperature = data.weather[0].description;
+            console.log(data.list[0].weather[0].description); //wow
         })
     }
 
