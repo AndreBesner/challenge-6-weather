@@ -92,12 +92,9 @@ $(document).ready(function(){
 
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
 
-
     let weatherIconToday = "";
+
     let openWeatherIconURL = "http://openweathermap.org/img/w/" + weatherIconToday + ".png"
-
-   
-
 
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
@@ -114,29 +111,18 @@ $(document).ready(function(){
             // This is all the data openweather sends for weather
             console.log(data);
 
-
-
-            
-
-            
-
-
-
-
-            
-
-
             //here we would set weather data icon
-
 
             // weatherDataToday.name = data.city.name;
             // console.log(weatherDataToday.name);
             // $("#city-name").text("Weather for: "+data.city.name);
+            $("#city-name-present").text("Weather for: "+data.city.name);
+            
 
             // weatherDataToday.icon = data.list[0].weather[0].icon;
             let iconCode = data.list[0].weather[0].icon;
             let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
-            $("#weather-icon").attr('src', iconURL);
+            $("#weather-icon-today").attr('src', iconURL);
 
             //the missing data is hidden until user gets to point in function where icon is generated so it never looks super ugly only little ugly
             $("#present-day-weather-container").addClass("show");
@@ -177,20 +163,34 @@ $(document).ready(function(){
             weatherDay1.description = data.list[8].weather[0].description;
             weatherDay1.icon = data.list[8].weather[0].icon;
             //here we would set weather data icon
+
+
+
             weatherDay1.name = data.city.name;
             weatherDay1.date = data.list[8].dt_txt;
             weatherDay1.temperature = data.list[8].main.temp;
             weatherDay1.humidity = data.list[8].main.humidity;
             weatherDay1.windSpeed = data.list[8].wind.speed;
             console.log(weatherDay1);
+            displayDayOne(data)
             //wow this is horrible but I will leave it like this for now while i do other stuff but it might give me carpal tunner
-
-
-
-
-            
-
             })
+    }
+
+    function displayDayOne(data){
+        // weatherDataToday.icon = data.list[0].weather[0].icon;
+        $("#day-one").addClass("show");
+        let iconCode = data.list[8].weather[0].icon;
+        let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        $("#weather-icon-day-one").attr('src', iconURL);
+        $("#present-day-weather-container").addClass("show");
+        $("#day-day-one").text("This is the weather on: " +data.list[8].dt_txt);
+        $("#description-day-one").text(data.list[8].weather[0].description);
+        $("#temperature-day-one").text("Temerature: " +data.list[8].main.temp+" Celcius");
+        $("#humidity-day-one").text(data.list[8].main.humidity +"%");
+        $("#windspeed-day-one").text(data.list[8].wind.speed + "km/h");
+        console.log('debug time');
+        
     }
 
     /*
@@ -202,6 +202,7 @@ THEN I am presented with a 5-day forecast that displays the date, an icon repres
 
 
 })
+
 
 
 
