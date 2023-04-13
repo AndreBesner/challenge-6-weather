@@ -1,13 +1,9 @@
+
+
 .hide{
     display: none;
 }
 
 .show{
     display: block;
-    text-align: center;
-}
-
-#five-day-weather-container{
-    display: flex;
-    justify-content: center;
 }
