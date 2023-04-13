@@ -21,6 +21,10 @@ $(document).ready(function(){
         }
     }
 
+   
+
+
+
     printLastSearches();
 
 
@@ -172,26 +176,61 @@ $(document).ready(function(){
             weatherDay1.humidity = data.list[8].main.humidity;
             weatherDay1.windSpeed = data.list[8].wind.speed;
             console.log(weatherDay1);
-            displayDayOne(data)
-            //wow this is horrible but I will leave it like this for now while i do other stuff but it might give me carpal tunner
+
+
+
+            // displayDayOne(data)  THIS TAKE THE DATA AND PASSES ON
+            displayFiveDay(data);
+
+
+
+
             })
     }
 
-    function displayDayOne(data){
-        // weatherDataToday.icon = data.list[0].weather[0].icon;
-        $("#day-one").addClass("show");
-        let iconCode = data.list[8].weather[0].icon;
-        let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
-        $("#weather-icon-day-one").attr('src', iconURL);
-        $("#present-day-weather-container").addClass("show");
-        $("#day-day-one").text("This is the weather on: " +data.list[8].dt_txt);
-        $("#description-day-one").text(data.list[8].weather[0].description);
-        $("#temperature-day-one").text("Temerature: " +data.list[8].main.temp+" Celcius");
-        $("#humidity-day-one").text(data.list[8].main.humidity +"%");
-        $("#windspeed-day-one").text(data.list[8].wind.speed + "km/h");
-        console.log('debug time');
-        
+    let fiveDayContainer = $("#five-day-weather-container");
+    function displayFiveDay(data){
+        for(let i = 7 ; i <= 40 ; i+=7){
+            let makeIcon = document.createElement("img");
+            let makeDate = document.createElement("div");
+            let makeTemp = document.createElement("div");
+            let makeHumidity = document.createElement("div");
+            let makeWind = document.createElement("div");
+            // makeIcon = data.list[i].weather[0].icon;
+            let iconCode = data.list[i].weather[0].icon;
+            let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            makeIcon.setAttribute('src', iconURL);
+
+            makeDate.textContent = data.list[i].dt_txt;
+            makeTemp.textContent = data.list[i].main.temp;
+            makeHumidity.textContent = data.list[i].main.humidity;
+            makeWind.textContent = data.list[i].wind.speed;
+            fiveDayContainer.append(makeIcon, makeDate, makeTemp, makeHumidity, makeWind);
+        }
     }
+
+
+
+
+
+
+
+
+    // function displayDayOne(data){
+    //     // weatherDataToday.icon = data.list[0].weather[0].icon;
+    //     $("#day-one").addClass("show");
+    //     let iconCode = data.list[8].weather[0].icon;
+    //     let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+    //     $("#weather-icon-day-one").attr('src', iconURL);
+    //     $("#present-day-weather-container").addClass("show");
+    //     $("#day-day-one").text("This is the weather on: " +data.list[8].dt_txt);
+    //     $("#description-day-one").text(data.list[8].weather[0].description);
+    //     $("#temperature-day-one").text("Temerature: " +data.list[8].main.temp+" Celcius");
+    //     $("#humidity-day-one").text(data.list[8].main.humidity +"%");
+    //     $("#windspeed-day-one").text(data.list[8].wind.speed + "km/h");
+    //     console.log('debug time');
+        
+    // }
 
     /*
 WHEN I view current weather conditions for that city
