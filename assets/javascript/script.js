@@ -14,11 +14,19 @@ $(document).ready(function(){
                 e.preventDefault(); // stops page from refreshing
                 let city = e.target.innerHTML;
                 getLongLat(city);
+                let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ;
+                cityArray.push(city);
+                if(cityArray.length > 5){
+                cityArray.shift();
+                }
+                localStorage.setItem("cityArray", JSON.stringify(cityArray));
+                printLastSearches()
             })
         }
 
     }
 
+    printLastSearches()
     let cityName = $("#city-name");
     $("#city-name-input").submit(function (e) { 
         e.preventDefault(); // stops page from refreshing
@@ -95,20 +103,25 @@ $(document).ready(function(){
     function displayFiveDay(data){
         fiveDayContainer.empty();
         for(let i = 7 ; i <= 40 ; i+=7){
+            let makeList = document.createElement("ul");
             let makeIcon = document.createElement("img");
-            let makeDate = document.createElement("div");
-            let makeTemp = document.createElement("div");
-            let makeHumidity = document.createElement("div");
-            let makeWind = document.createElement("div");
+            let makeDate = document.createElement("li");
+            let makeTemp = document.createElement("li");
+            let makeHumidity = document.createElement("li");
+            let makeWind = document.createElement("li");
             let iconCode = data.list[i].weather[0].icon;
             let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
             makeIcon.setAttribute('src', iconURL);
             dateText = data.list[i].dt_txt
+            
             makeDate.textContent = "Weather on: " + dateText.substring(0, 10);
             makeTemp.textContent = "Temp: " + data.list[i].main.temp + " Celcius";
             makeHumidity.textContent = "Humidity: " + data.list[i].main.humidity + "%";
             makeWind.textContent = "Wind Speed: " + data.list[i].wind.speed + "%";
-            fiveDayContainer.append(makeIcon, makeDate, makeTemp, makeHumidity, makeWind);
+
+            makeList.append(makeDate, makeTemp, makeHumidity, makeWind)
+            fiveDayContainer.append(makeIcon, makeList);
+            // fiveDayContainer.append(makeIcon, makeDate, makeTemp, makeHumidity, makeWind);
         }
     }
 })
