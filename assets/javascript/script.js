@@ -4,28 +4,11 @@ $(document).ready(function(){
     let previousSearchContainer = $("#previous-search-container");
     function printLastSearches(){
         previousSearchContainer.empty();
-        // for(let i = localStorage.length - 1 ; i >= localStorage.length - 6 ; i -- ){
-        //     let key = localStorage.key(i);
-        //     // console.log(localStorage.getItem(key));
-        //     let makeListItem = document.createElement('li');
-        //     makeListItem.innerHTML = localStorage.getItem(key);
-        //     previousSearchContainer.append(makeListItem);
-        //     //make a link
-
-            //on click have it run function like below 
-            // makeListItem.addEventListener('click', (e)=>{
-            //     e.preventDefault(); // stops page from refreshing
-            //     let city = e.target.innerHTML;
-            //     getLongLat(city);
-            // })
-        // }
-
         let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ;
         for(let i = cityArray.length - 1 ; i >= 0 ; i--){
             let makeListItem = document.createElement('li');
             makeListItem.innerHTML = cityArray[i];
             previousSearchContainer.append(makeListItem);
-
             //on click have it run function like below 
             makeListItem.addEventListener('click', (e)=>{
                 e.preventDefault(); // stops page from refreshing
@@ -36,34 +19,20 @@ $(document).ready(function(){
 
     }
 
-    // printLastSearches();
-
     let cityName = $("#city-name");
     $("#city-name-input").submit(function (e) { 
         e.preventDefault(); // stops page from refreshing
         let city = $("#city-name").val().trim(); // saves entered name to variable
         console.log(city)
-
         let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ;
-
         cityArray.push(city);
-
         if(cityArray.length > 5){
             cityArray.shift();
         }
-
         localStorage.setItem("cityArray", JSON.stringify(cityArray));
-
         printLastSearches();
-
-        
-        // let storageKey = "userText.." + Date.now(); // sets a key for individual local storage
-        // localStorage.setItem(storageKey, city); // sets each search term to local storage
-
-
         getLongLat(city); // passes city text on to api call idek how but it works with gibberish
         cityName.val(""); // clears text in box
-        //
     });
 
     const latLongAPIUrl = "http://api.openweathermap.org/geo/1.0/direct?q="
@@ -81,7 +50,6 @@ $(document).ready(function(){
             console.log(error);
             alert("Something went wrong, please try again later, alligator");
         })
-        
         //THIS CHECKS IF THE DATA ENTERED DOESNT WORK
         .then(function (data) {
             if(!data || data.length === 0){
@@ -115,15 +83,11 @@ $(document).ready(function(){
             $("#present-day-weather-container").addClass("show");
             dayToday = data.list[0].dt_txt
             $("#day-today").text("This is the weather on for right now on: " + dayToday.substring(0, 10));
-            // $("#day-today").text("This is the weather on: " +data.list[0].dt_txt);
             $("#description-today").text(data.list[0].weather[0].description);
             $("#temperature-today").text("Temerature: " +data.list[0].main.temp+" Celcius");
             $("#humidity-today").text(data.list[0].main.humidity +"%");
             $("#windspeed-today").text(data.list[0].wind.speed + "km/h");
-
-
             displayFiveDay(data);
-
             })
     }
 
