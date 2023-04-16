@@ -126,7 +126,7 @@ $(document).ready(function(){
         // with the relevant weather information
         // it took me ages to figure out how to do this and implement bootstrap.
         for(let i = 7 ; i <= 40 ; i+=7){
-            let makeDiv = $("<div>").addClass('col');
+            let makeDiv = $("<div>").addClass('col bg-primary text-white border-black');
             let makeList = document.createElement("ul");
             let makeIcon = document.createElement("img");
             let makeDate = document.createElement("li");

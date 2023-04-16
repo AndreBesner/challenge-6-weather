@@ -1,10 +1,3 @@
-*{
-    margin: 5px;
-}
-
-body{    
-}
-
 .hide{
     display: none;
 }
@@ -12,3 +5,8 @@ body{
 .show{
     display: block;
 }
+
+#today-forecast{
+    margin-bottom: 20vh;
+}
+
