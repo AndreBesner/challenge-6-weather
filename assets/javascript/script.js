@@ -1,11 +1,14 @@
 $(document).ready(function(){
 
-    // Print the  5 searches as list items
-    let previousSearchContainer = $("#previous-search-container");
+    // Function to print the last 5 search items
+    let previousSearchContainer = $("#previous-search-container"); //this is where the list for prev searches lives
     function printLastSearches(){
-        previousSearchContainer.empty();
-        let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ;
+        previousSearchContainer.empty(); // empties previous entries to populate newest
+        let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ; // look for for existing array of cities searched, if not found creates one
         for(let i = cityArray.length - 1 ; i >= 0 ; i--){
+            //This is going to run through and create clickable list items for the last 5 cities searched
+            //With more time I would have it check if the city entered is valid or not
+            //If not valid I would not save it to local storage but I am running low on time
             let makeListItem = document.createElement('li');
             makeListItem.innerHTML = cityArray[i];
             previousSearchContainer.append(makeListItem);
@@ -16,6 +19,7 @@ $(document).ready(function(){
                 getLongLat(city);
                 let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ;
                 cityArray.push(city);
+                // after creating the array for local storage we ensure it is only 5 entries long
                 if(cityArray.length > 5){
                 cityArray.shift();
                 }
@@ -25,8 +29,10 @@ $(document).ready(function(){
         }
 
     }
+    printLastSearches();
 
-    printLastSearches()
+    // This is the function that runs when the user actually hits enter or clicks a previous search
+    // List item
     let cityName = $("#city-name");
     $("#city-name-input").submit(function (e) { 
         e.preventDefault(); // stops page from refreshing
@@ -34,38 +40,46 @@ $(document).ready(function(){
         console.log(city)
         let cityArray = JSON.parse(localStorage.getItem("cityArray")) || [] ;
         cityArray.push(city);
+        // after creating the array for local storage we ensure it is only 5 entries long
         if(cityArray.length > 5){
             cityArray.shift();
         }
         localStorage.setItem("cityArray", JSON.stringify(cityArray));
         printLastSearches();
-        getLongLat(city); // passes city text on to api call idek how but it works with gibberish
+        getLongLat(city); // passes city text on to api call, i don't know how, but it works with gibberish sometimes lol
         cityName.val(""); // clears text in box
     });
 
+    // This is the code that takes the human spoken city and converts it
+    // to it's latitudinal and longitudinal coordinates to be passed on to next open weather call
     const latLongAPIUrl = "http://api.openweathermap.org/geo/1.0/direct?q="
-    const apiKey = "4790ded9cd9c563d5479fc18a7479e30"
+    const apiKey = "4790ded9cd9c563d5479fc18a7479e30" // i feel like having this here and open in github is bad practice
     function getLongLat(data){
         let latLongUrl = latLongAPIUrl + data + "&appid=" + apiKey;
         fetch(latLongUrl) 
         .then(function(response){
+            // Error handling
             if(!response.ok){
                 alert("Woops something went wrong!");
             }
             return response.json();
         })
+        // Error handling
         .catch(function(error){
             console.log(error);
             alert("Something went wrong, please try again later, alligator");
         })
-        //THIS CHECKS IF THE DATA ENTERED DOESNT WORK
+        // Error handling
         .then(function (data) {
             if(!data || data.length === 0){
                 alert("Sorry, Please enter a valid city name.")
                 return;
             }
+            // Parses returned data for the details we need
+            console.log(data);
            let lat = data[0].lat;
            let lon = data[0].lon;
+           $("#state-name-present").text("In the state or province of: " + data[0].state);
            getWeather(lat, lon);
         })
     }
