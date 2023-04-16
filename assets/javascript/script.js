@@ -76,19 +76,19 @@ $(document).ready(function(){
                 return;
             }
             // Parses returned data for the details we need
-            console.log(data);
            let lat = data[0].lat;
            let lon = data[0].lon;
-           $("#state-name-present").text("In the state or province of: " + data[0].state);
-           getWeather(lat, lon);
+           $("#state-name-present").text("In the state or province of: " + data[0].state); // This tells user state or province for weather 
+           getWeather(lat, lon); // passes on lattitude and longitude to weather api call
         })
     }
 
+    // Weather API call with openweather
     const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
-        console.log(getWeatherUrl);
         fetch(getWeatherUrl)
+        // Error handling
         .then(function(response){
             if(!response.ok){
                 alert("Woops something went wrong!");
@@ -96,28 +96,35 @@ $(document).ready(function(){
             return response.json();
         })
         .then(function (data){
-
-            console.log(data);
+            // The following code prints the relevant weather data returned that was returned by
+            // open weather in the form of an object
+            // I will not comment each as it speaks for itself
             $("#city-name-present").text("Weather for: "+data.city.name);
             let iconCode = data.list[0].weather[0].icon;
-            let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png"; // this generates the icon image based on code returned then makes link to hosted image file from openweather
             $("#weather-icon-today").attr('src', iconURL);
             $("#present-day-weather-container").addClass("show");
             dayToday = data.list[0].dt_txt
-            $("#day-today").text("This is the weather on for right now on: " + dayToday.substring(0, 10));
+            $("#day-today").text("This is the weather on for right now on: " + dayToday.substring(0, 10)); // this cuts off the ugly time code and leaves only the day
             $("#description-today").text(data.list[0].weather[0].description);
             $("#temperature-today").text("Temerature: " + data.list[0].main.temp+" Celcius");
             $("#humidity-today").text("Humidity at: " + data.list[0].main.humidity +"%");
             $("#windspeed-today").text("Wind speed at: " + data.list[0].wind.speed + "km/h");
-            displayFiveDay(data);
+            displayFiveDay(data); // passes on data array to function to print the 5 day weather forecast
             })
     }
 
-    let fiveDayContainer = $("#five-day-weather-container");
-    let fiveRizz = $("#five-day");
+    // Function to take the weather object and display a 5 day forecast 
+    let fiveRizz = $("#five-day"); // I was frustrated making the variable name but I like it now
     function displayFiveDay(data){
-        fiveRizz.empty();
-        fiveDayContainer.empty();
+        fiveRizz.empty(); // clears previous 5 day data each time this function runs
+        // I don't really like how the following code is implemented
+        // I wanted each day to have the same "time" but i couldn't figure out the logic
+        // After speaking to Adam and Daler they informed me this approach would be fine for scope of project
+        // The way it works now is it take the array with 40 elements, we used the first element for present
+        // weather conditions, then it loops through remaining 39 evenly and creates a new div for each day
+        // with the relevant weather information
+        // it took me ages to figure out how to do this and implement bootstrap.
         for(let i = 7 ; i <= 40 ; i+=7){
             let makeDiv = $("<div>").addClass('col');
             let makeList = document.createElement("ul");
@@ -130,21 +137,14 @@ $(document).ready(function(){
             let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
             makeIcon.setAttribute('src', iconURL);
             dateText = data.list[i].dt_txt
-            
             makeDate.textContent = "Weather on: " + dateText.substring(0, 10);
             makeTemp.textContent = "Temp: " + data.list[i].main.temp + " Celcius";
             makeHumidity.textContent = "Humidity: " + data.list[i].main.humidity + "%";
             makeWind.textContent = "Wind Speed: " + data.list[i].wind.speed + "%";
-
             makeList.append(makeDate,makeTemp,makeHumidity,makeWind,makeIcon);
             makeDiv.append(makeList);
             fiveRizz.append(makeDiv);
-            
 
-            // makeList.append(makeDate, makeTemp, makeHumidity, makeWind)
-            // $(makeList).addClass('col');
-            // makeDiv.append(makeList);
-            // fiveDayContainer.append(makeIcon, makeDiv);
         }
     }
 })
