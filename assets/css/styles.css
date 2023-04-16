@@ -1,4 +1,9 @@
+*{
+    margin: 5px;
+}
 
+body{    
+}
 
 .hide{
     display: none;

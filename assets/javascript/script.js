@@ -92,17 +92,20 @@ $(document).ready(function(){
             dayToday = data.list[0].dt_txt
             $("#day-today").text("This is the weather on for right now on: " + dayToday.substring(0, 10));
             $("#description-today").text(data.list[0].weather[0].description);
-            $("#temperature-today").text("Temerature: " +data.list[0].main.temp+" Celcius");
-            $("#humidity-today").text(data.list[0].main.humidity +"%");
-            $("#windspeed-today").text(data.list[0].wind.speed + "km/h");
+            $("#temperature-today").text("Temerature: " + data.list[0].main.temp+" Celcius");
+            $("#humidity-today").text("Humidity at: " + data.list[0].main.humidity +"%");
+            $("#windspeed-today").text("Wind speed at: " + data.list[0].wind.speed + "km/h");
             displayFiveDay(data);
             })
     }
 
     let fiveDayContainer = $("#five-day-weather-container");
+    let fiveRizz = $("#five-day");
     function displayFiveDay(data){
+        fiveRizz.empty();
         fiveDayContainer.empty();
         for(let i = 7 ; i <= 40 ; i+=7){
+            let makeDiv = $("<div>").addClass('col');
             let makeList = document.createElement("ul");
             let makeIcon = document.createElement("img");
             let makeDate = document.createElement("li");
@@ -119,9 +122,15 @@ $(document).ready(function(){
             makeHumidity.textContent = "Humidity: " + data.list[i].main.humidity + "%";
             makeWind.textContent = "Wind Speed: " + data.list[i].wind.speed + "%";
 
-            makeList.append(makeDate, makeTemp, makeHumidity, makeWind)
-            fiveDayContainer.append(makeIcon, makeList);
-            // fiveDayContainer.append(makeIcon, makeDate, makeTemp, makeHumidity, makeWind);
+            makeList.append(makeDate,makeTemp,makeHumidity,makeWind,makeIcon);
+            makeDiv.append(makeList);
+            fiveRizz.append(makeDiv);
+            
+
+            // makeList.append(makeDate, makeTemp, makeHumidity, makeWind)
+            // $(makeList).addClass('col');
+            // makeDiv.append(makeList);
+            // fiveDayContainer.append(makeIcon, makeDiv);
         }
     }
 })

@@ -11,38 +11,49 @@
 </head>
 <body>
 
-    <header>
-        <h1>
-            Forecast Finder
-        </h1>
-        <h2>
-            Enter a Major Cities' Name to Display the Weather Forecast!
-        </h2>
-    </header>
+  <header class="bg-primary text-white">
+    <h1>
+      Forecast Finder
+    </h1>
+    <h2>
+        Enter a Major Cities' Name to Display the Weather Forecast!
+    </h2>
+  </header>
 
-    <div class="container">
-        <div class="row">        
-            <div id="search-container">
-                <form action="" id="city-name-input" class="col-6">
-                    <input type="text" id="city-name" class="col-lg-6" placeholder="Enter city name">
-                </form>
-                <ul id="previous-search-container">
-                </ul>
-                <div id="present-day-weather-container" class="hide col-lg-6">      
-                        <div id="city-name-present"></div>
-                        <div id="day-today"></div>
-                        <div id="description-today"></div>
-                        <img id="weather-icon-today" src="" alt="icon to represent current weather conditions">
-                        <div id="temperature-today"></div>
-                        <div id="humidity-today"></div>
-                        <div id="windspeed-today"></div>    
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form action="" id="city-name-input" class="">
+          <input type="text" id="city-name" class="col" placeholder="Enter city name, ex Toronto, CA">
+        </form>
+        <ul id="previous-search-container">
+        </ul>
+      </div>
+      <div class="col">
+        <div id="present-day-weather-container" class="hide col">      
+          <div id="city-name-present"></div>
+          <div id="day-today"></div>
+          <div id="description-today"></div>
+          <img id="weather-icon-today" src="" alt="icon to represent current weather conditions">
+          <div id="temperature-today"></div>
+          <div id="humidity-today"></div>
+          <div id="windspeed-today"></div>    
         </div>
-        <div id="five-day-weather-container">
-
-        </div>
+      </div>
     </div>
+  </div>
+
+
+          
+
+  <div class="container text-center">
+    <div id="five-day" class="row">
+
+    </div>
+  </div>
+
+            
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
