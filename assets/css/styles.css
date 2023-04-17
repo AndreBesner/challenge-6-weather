@@ -5,3 +5,8 @@
 .show{
     display: block;
 }
+
+#today-forecast{
+    margin-bottom: 20vh;
+}
+
