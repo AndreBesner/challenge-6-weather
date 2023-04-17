@@ -101,7 +101,7 @@ $(document).ready(function(){
             // I will not comment each as it speaks for itself
             $("#city-name-present").text("Weather for: "+data.city.name);
             let iconCode = data.list[0].weather[0].icon;
-            let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png"; // this generates the icon image based on code returned then makes link to hosted image file from openweather
+            let iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png"; // this generates the icon image based on code returned then makes link to hosted image file from openweather
             $("#weather-icon-today").attr('src', iconURL);
             $("#present-day-weather-container").addClass("show");
             dayToday = data.list[0].dt_txt
@@ -134,7 +134,7 @@ $(document).ready(function(){
             let makeHumidity = document.createElement("li");
             let makeWind = document.createElement("li");
             let iconCode = data.list[i].weather[0].icon;
-            let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            let iconURL = "https://openweathermap.org/img/w/" + iconCode + ".png";
             makeIcon.setAttribute('src', iconURL);
             makeIcon.setAttribute('alt', 'icon to represent the weather');
             dateText = data.list[i].dt_txt;
