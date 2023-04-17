@@ -126,7 +126,7 @@ $(document).ready(function(){
         // with the relevant weather information
         // it took me ages to figure out how to do this and implement bootstrap.
         for(let i = 7 ; i <= 40 ; i+=7){
-            let makeDiv = $("<div>").addClass('col bg-primary text-white border-black');
+            let makeDiv = $("<div>").addClass('col bg-primary text-white border');
             let makeList = document.createElement("ul");
             let makeIcon = document.createElement("img");
             let makeDate = document.createElement("li");
@@ -136,7 +136,8 @@ $(document).ready(function(){
             let iconCode = data.list[i].weather[0].icon;
             let iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
             makeIcon.setAttribute('src', iconURL);
-            dateText = data.list[i].dt_txt
+            makeIcon.setAttribute('alt', 'icon to represent the weather');
+            dateText = data.list[i].dt_txt;
             makeDate.textContent = "Weather on: " + dateText.substring(0, 10);
             makeTemp.textContent = "Temp: " + data.list[i].main.temp + " Celcius";
             makeHumidity.textContent = "Humidity: " + data.list[i].main.humidity + "%";
