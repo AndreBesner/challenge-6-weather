@@ -13,9 +13,15 @@ into usable data to display a 5 day forecast.
 
 No additional steps required to install. Just navigate to page. It has been tested functional
 
-on current versions of Google Chrome and Firefox as of April 16, 2023.
+on current versions of Google Chrome and Firefox as of April 16, 2023. See usage for notes on firefox systems
+
+https://andrebesner.github.io/challenge-6-weather-forecast/
 
 ## Usage
+
+When you first run site on firefox it may give you mixed content error. To get site working you need to click security options and temp disable that security. You don't need to do this for chrome.
+
+![photo of setting to change](./assets/images/site-issue.png)
 
 Use the site however you like. As stated in the text input box, you can add a comma and country code
 
