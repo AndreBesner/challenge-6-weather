@@ -141,7 +141,7 @@ $(document).ready(function(){
             makeDate.textContent = "Weather on: " + dateText.substring(0, 10);
             makeTemp.textContent = "Temp: " + data.list[i].main.temp + " Celcius";
             makeHumidity.textContent = "Humidity: " + data.list[i].main.humidity + "%";
-            makeWind.textContent = "Wind Speed: " + data.list[i].wind.speed + "%";
+            makeWind.textContent = "Wind Speed: " + data.list[i].wind.speed + "km/h";
             makeList.append(makeDate,makeTemp,makeHumidity,makeWind,makeIcon);
             makeDiv.append(makeList);
             fiveRizz.append(makeDiv);
