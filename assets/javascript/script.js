@@ -107,7 +107,7 @@ $(document).ready(function(){
             dayToday = data.list[0].dt_txt
             $("#day-today").text("This is the weather on for right now on: " + dayToday.substring(0, 10)); // this cuts off the ugly time code and leaves only the day
             $("#description-today").text(data.list[0].weather[0].description);
-            $("#temperature-today").text("Temerature: " + data.list[0].main.temp+" Celcius");
+            $("#temperature-today").text("Temperature: " + data.list[0].main.temp+" Celcius");
             $("#humidity-today").text("Humidity at: " + data.list[0].main.humidity +"%");
             $("#windspeed-today").text("Wind speed at: " + data.list[0].wind.speed + "km/h");
             displayFiveDay(data); // passes on data array to function to print the 5 day weather forecast
