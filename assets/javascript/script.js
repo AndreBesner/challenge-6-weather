@@ -52,7 +52,7 @@ $(document).ready(function(){
 
     // This is the code that takes the human spoken city and converts it
     // to it's latitudinal and longitudinal coordinates to be passed on to next open weather call
-    const latLongAPIUrl = "http://api.openweathermap.org/geo/1.0/direct?q="
+    const latLongAPIUrl = "https://api.openweathermap.org/geo/1.0/direct?q="
     const apiKey = "4790ded9cd9c563d5479fc18a7479e30" // i feel like having this here and open in github is bad practice
     function getLongLat(data){
         let latLongUrl = latLongAPIUrl + data + "&appid=" + apiKey;
@@ -84,7 +84,7 @@ $(document).ready(function(){
     }
 
     // Weather API call with openweather
-    const getWeatherAPIUrl = "http://api.openweathermap.org/data/2.5/forecast?"
+    const getWeatherAPIUrl = "https://api.openweathermap.org/data/2.5/forecast?"
     function getWeather(latitude, longitude){
         let getWeatherUrl = getWeatherAPIUrl + "lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=metric";
         fetch(getWeatherUrl)
